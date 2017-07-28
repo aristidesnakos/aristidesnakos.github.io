@@ -1,0 +1,20 @@
+---
+
+layout: default
+
+title: Ari Tides' Learning Portal
+
+---
+
+        <h1>{{ page.title }}</h1>
+
+        <ul class="subjects">
+
+
+
+       {% for subject in site.subjects %}
+       <li><span>{{ subject.date | date_to_string }}</span> » <a href="{{ subject.url }}" title="{{ subject.title }}">{{ subject.title }}</a></li>
+
+      {% endfor %}
+
+        </ul>
