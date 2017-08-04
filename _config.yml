@@ -22,12 +22,12 @@ baseurl: "/home" # the subpath of your site, e.g. /blog
 url: "https://aristidesnakos.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: aristidesnakos
 github_username:  aristidesnakos
-=======
+
 baseurl: "/home" # the subpath of your site, e.g. /blog
 url: "aristidesnakos.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: aristidesnakos
 github_username:  aristidesnakos
->>>>>>> 18874a6bde87c8bf0c5bf1c60854ff6ac4d80fab
+
 
 # Build settings
 name: Ari Nakos
