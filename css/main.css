@@ -50,3 +50,12 @@ ul.subjects {
 ul.subjects li {
     list-style: none;
 }
+
+ul.cv { 
+    margin: 40px auto 40px; 
+    font-size: 1.5em;
+}
+
+ul.cv li {
+    list-style-type: circle;;
+}
