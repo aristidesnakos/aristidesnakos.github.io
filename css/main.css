@@ -61,6 +61,7 @@ ul.cv {
 }
 
 ul.cv li {
+    margin: 80px auto 80px;
     list-style-type: circle;
     padding-left: 80px;
 }
