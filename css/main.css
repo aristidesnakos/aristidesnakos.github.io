@@ -2,6 +2,10 @@ body {
     margin: 60px auto;
     width: 70%;
 }
+
+div.container {
+    width:100%;
+}
 nav ul, footer ul {
     font-family:'Helvetica', 'Arial', 'Sans-Serif';
     padding: 0px;
@@ -22,6 +26,12 @@ a:hover {
 h1 {
     font-size: 3em;
     font-family:'Helvetica', 'Arial', 'Sans-Serif';
+}
+
+h2 {
+    font-size: 2em;
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    text-align:left;
 }
 p {
     font-size: 1.5em;
@@ -52,16 +62,35 @@ ul.subjects li {
 }
 
 ul.cv { 
-    margin: 40px auto 40px; 
+    margin-left:170px; 
     font-size: 1em;
-    padding-top: 40px;
-    padding-right: 20px;
-    padding-bottom: 40px;
-    padding-left: 30px;
+    padding: 1em;
 }
 
 ul.cv li {
-    margin: 80px auto 80px;
+    margin-left: 170px;
     list-style-type: circle;
-    padding-left: 80px;
+    padding: 1em;
 }
+
+li,h4 {
+    margin-left:170px;
+    border-left:1px solid gray;
+    padding: 1 em;
+    overflow: hidden;
+}
+p.cv {
+    margin-left:200px;
+    border-left:1px solid gray;
+    padding: 1.5em;
+    overflow: hidden;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0px;
+    padding: 1em;
+}
+
+
