@@ -86,7 +86,7 @@ p.cv {
     overflow: hidden;
 }
 
-nav {
+nav.cv {
     float: left;
     max-width: 160px;
     margin: 0px;
