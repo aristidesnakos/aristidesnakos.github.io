@@ -1,4 +1,5 @@
-/* Modern Dark Theme Resume - Inspired by zaidmukaddam.com */
+/* Modern Dark Theme Resume - Accessible Edition */
+/* WCAG 2.1 AA compliant contrast ratios */
 
 * {
     margin: 0;
@@ -10,15 +11,37 @@
     --bg-primary: #0a0a0a;
     --bg-secondary: #111111;
     --bg-tertiary: #1a1a1a;
-    --text-primary: #e5e5e5;
-    --text-secondary: #a0a0a0;
-    --text-tertiary: #666666;
-    --accent: #3b82f6;
-    --accent-hover: #2563eb;
-    --border: #222222;
+    /* Adjusted for WCAG AA contrast (4.5:1 minimum against bg-primary) */
+    --text-primary: #e5e5e5;       /* ~16:1 ratio on #0a0a0a ✓ */
+    --text-secondary: #b0b0b0;     /* bumped from #a0a0a0 → ~10:1 ✓ */
+    --text-tertiary: #8a8a8a;      /* bumped from #666666 → ~5.5:1 ✓ */
+    --accent: #60a5fa;             /* bumped from #3b82f6 → ~6.5:1 ✓ */
+    --accent-hover: #93c5fd;
+    --border: #2a2a2a;
+    --focus-ring: #60a5fa;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ===== SKIP LINK (keyboard/screen reader nav) ===== */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 16px;
+    z-index: 1000;
+    padding: 12px 24px;
+    background: var(--accent);
+    color: var(--bg-primary);
+    font-weight: 600;
+    border-radius: 0 0 8px 8px;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* ===== BASE ===== */
 body {
     font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
     line-height: 1.7;
@@ -26,6 +49,8 @@ body {
     background-color: var(--bg-primary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Ensure text scales with user browser settings */
+    font-size: 100%;
 }
 
 .container {
@@ -34,6 +59,19 @@ body {
     padding: 0 24px;
 }
 
+/* ===== FOCUS STYLES (keyboard accessibility) ===== */
+*:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* Remove outline for mouse users, keep for keyboard */
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ===== HEADER ===== */
 header {
     padding: 120px 0 80px;
     animation: fadeIn 0.8s ease-out;
@@ -55,10 +93,30 @@ header h1 {
     font-weight: 700;
     margin-bottom: 16px;
     letter-spacing: -0.05em;
+    color: var(--text-primary);
+    /* Gradient kept as progressive enhancement,
+       but with solid color fallback for high contrast mode */
     background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+/* Windows High Contrast Mode: restore solid text */
+@media (forced-colors: active) {
+    header h1 {
+        -webkit-text-fill-color: currentColor;
+        background: none;
+    }
+
+    .tag {
+        border: 1px solid currentColor;
+    }
+
+    .job,
+    .education-item {
+        border: 1px solid currentColor;
+    }
 }
 
 .tagline {
@@ -68,6 +126,7 @@ header h1 {
     letter-spacing: -0.01em;
 }
 
+/* ===== MAIN CONTENT ===== */
 main {
     padding: 0 0 100px;
 }
@@ -95,6 +154,28 @@ section:nth-child(5) { animation-delay: 0.5s; }
     }
 }
 
+/* ===== REDUCED MOTION ===== */
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    header {
+        animation: none;
+    }
+
+    section {
+        animation: none;
+    }
+}
+
+/* ===== HEADINGS ===== */
 h2 {
     font-size: 1.5rem;
     margin-bottom: 32px;
@@ -128,6 +209,7 @@ h3 {
     letter-spacing: -0.01em;
 }
 
+/* ===== JOB CARDS ===== */
 .job {
     margin-bottom: 48px;
     padding: 24px;
@@ -140,7 +222,7 @@ h3 {
 .job:hover {
     border-color: var(--accent);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 8px 24px rgba(96, 165, 250, 0.1);
 }
 
 .company {
@@ -163,17 +245,34 @@ h3 {
     font-size: 0.95rem;
 }
 
+.highlight {
+    margin-top: 12px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
 .reference {
     margin-top: 16px;
     font-size: 0.875rem;
     color: var(--text-tertiary);
 }
 
-.reference a {
+/* ===== LINKS ===== */
+a {
     color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+.reference a {
     text-decoration: none;
     border-bottom: 1px solid transparent;
-    transition: var(--transition);
 }
 
 .reference a:hover {
@@ -181,6 +280,7 @@ h3 {
     border-bottom-color: var(--accent-hover);
 }
 
+/* ===== LISTS ===== */
 ul {
     margin-left: 20px;
     margin-top: 12px;
@@ -196,6 +296,7 @@ li::marker {
     color: var(--accent);
 }
 
+/* ===== EDUCATION ===== */
 .education-item {
     margin-bottom: 24px;
     padding: 20px;
@@ -219,6 +320,7 @@ li::marker {
     font-size: 0.95rem;
 }
 
+/* ===== SKILLS ===== */
 .skill-category {
     margin-bottom: 40px;
 }
@@ -242,17 +344,10 @@ li::marker {
     font-size: 0.875rem;
     color: var(--text-secondary);
     border: 1px solid var(--border);
-    transition: var(--transition);
-    cursor: default;
+    /* No hover transform — these are not interactive elements */
 }
 
-.tag:hover {
-    background-color: var(--bg-secondary);
-    border-color: var(--accent);
-    color: var(--accent);
-    transform: translateY(-2px);
-}
-
+/* ===== CONTACT LINKS ===== */
 .contact-link {
     display: inline-flex;
     align-items: center;
@@ -270,8 +365,13 @@ li::marker {
 .contact-link:hover {
     background-color: var(--accent);
     border-color: var(--accent);
+    color: var(--bg-primary);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 8px 24px rgba(96, 165, 250, 0.2);
+}
+
+.contact-link:focus-visible {
+    outline-offset: 4px;
 }
 
 .contact-link svg {
@@ -282,6 +382,7 @@ li::marker {
     transform: scale(1.1);
 }
 
+/* ===== FOOTER ===== */
 footer {
     background-color: var(--bg-secondary);
     border-top: 1px solid var(--border);
@@ -291,12 +392,12 @@ footer {
     font-size: 0.875rem;
 }
 
-/* Smooth scroll */
+/* ===== SMOOTH SCROLL ===== */
 html {
     scroll-behavior: smooth;
 }
 
-/* Selection styling */
+/* ===== SELECTION ===== */
 ::selection {
     background-color: var(--accent);
     color: var(--bg-primary);
@@ -307,7 +408,7 @@ html {
     color: var(--bg-primary);
 }
 
-/* Responsive Design */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     header {
         padding: 80px 0 60px;
